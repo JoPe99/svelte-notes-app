@@ -1,34 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import NavBar from "./components/NavBar"
+import NotesView from "./components/NotesView"
+import { v4 as uuid } from 'uuid';
+import { useState } from 'react';
 
-function App() {
-  const [count, setCount] = useState(0)
+export interface Note {
+  id: string;
+  title: string;
+  text: string;
+  color: string;
+}
+
+const App = () => {
+  const [ notes, setNotes ] = useState<Note[]>([]);
+  const [ noteCount, setNoteCount ] = useState([]);
+
+  const possibleNoteColors = ["blue", "red", "black", "white", "green", "indigo", "purple"];
+
+  const addNoteHandler = (_title: string, _text: string, _color: string) => {
+    setNotes(notes => [...notes, {
+      id: uuid(),
+      title: _title,
+      text: _text,
+      color: _color
+    }])
+  }
+
+  const deleteNoteHandler = (id: string) => {
+    setNotes((prevNotes) => {
+      return (prevNotes.filter((note) => {
+        return id !== note.id
+      }))
+    })
+  }
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <>
+      <NavBar addNoteHandler={addNoteHandler} noteColors={possibleNoteColors} amountOfNotes={notes.length} />
+      <NotesView notes={notes}/>
+    </>
   )
 }
 
