@@ -1,4 +1,5 @@
-import { FormEvent, FormHTMLAttributes, Ref, RefObject, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { FormEvent, useRef } from 'react';
 import { Col, Container, Form, Button, Navbar, Row, Stack } from 'react-bootstrap';
 
 type NavBarProps = {
@@ -7,19 +8,19 @@ type NavBarProps = {
     amountOfNotes: number
 }
 
-const NavBar = ({ addNoteHandler, amountOfNotes }: NavBarProps) => {
+const NavBar = ({ addNoteHandler, noteColors, amountOfNotes }: NavBarProps) => {
     const titleRef = useRef<HTMLInputElement>(null);
     const textRef = useRef<HTMLInputElement>(null);
-    const colorRef = useRef<any>('blue');
     const formRef = useRef<HTMLFormElement>(null);
+    const [ color, setColor ] = useState(noteColors[0]);
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        addNoteHandler(titleRef.current!.value, textRef.current!.value, colorRef.current!.value)
+        addNoteHandler(titleRef.current!.value, textRef.current!.value, color)
 
         formRef.current!.reset();
+        setColor(noteColors[0]);
     }
-
 
     return (
         <>
@@ -46,10 +47,19 @@ const NavBar = ({ addNoteHandler, amountOfNotes }: NavBarProps) => {
                                         />
                                     </Form.Group>
                                 </Col>
+                                <Col>
+                                    <Form.Select>
+                                        {noteColors.map((color) => {
+                                            return (
+                                                <option key={color} value={color} onClick={
+                                                    () => setColor(color)
+                                                }>{color}</option>
+                                            )
+                                        })}
+                                    </Form.Select>
+                                </Col>
                                 <Col sm='auto'>
-                                    <Button type='submit' variant='light' onClick={() => {
-                                        
-                                    }}>Add Note</Button>
+                                    <Button type='submit' variant='light'>Add Note</Button>
                                 </Col>
                             </Row>
                         </Stack>
