@@ -1,5 +1,5 @@
 import { Note } from "../App"
-import { Button, Card } from 'react-bootstrap';
+import { Button, Card, Container, Row, Stack, Col } from 'react-bootstrap';
 
 type NotesViewProps = {
     notes: Note[],
@@ -7,31 +7,26 @@ type NotesViewProps = {
 }
 
 const NotesView = ({ notes, deleteNote }: NotesViewProps) => {
-    const getTextColor = (color: string) => {
-        if (color === 'white') {
-            return 'black'
-        } else {
-            return 'white'
-        }
-    }
-
     return (
-        <>
-            {notes.map((note) => {
-                return (
-                    <Card key={note.id} style={{
-                        backgroundColor: note.color,
-                        color: getTextColor(note.color)
-                    }}>
-                        <Card.Header>{note.title}</Card.Header>
-                        <Card.Body>
-                            <Card.Text>{note.text}</Card.Text>
-                        </Card.Body>
-                        <Button onClick={() => deleteNote(note.id)}variant='danger'>Delete</Button>
-                    </Card>
-                )
-            })}
-        </>
+        <Container>
+            <Row>
+                {notes.map((note) => {
+                    return (
+                        <Card key={note.id} className='m-3' style={{
+                            width: '20%',
+                            backgroundColor: note.color,
+                            color: note.color === 'white' ? 'black' : 'white'
+                        }}>
+                            <Card.Header>{note.title}</Card.Header>
+                            <Card.Body>
+                                <Card.Text>{note.text}</Card.Text>
+                                <Button onClick={() => deleteNote(note.id)}variant='danger'>Delete</Button>
+                            </Card.Body>
+                        </Card>
+                    )
+                })}
+            </Row>
+        </Container>
     )
 }
 
