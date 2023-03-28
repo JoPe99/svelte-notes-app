@@ -1,3 +1,4 @@
+<!-- Components -->
 <template>
     <v-container fluid class="fill-height">
         <!-- Upper app bar -->
@@ -42,12 +43,14 @@
     </v-container>
 </template>
 
+<!-- Logic -->
 <script lang="ts">
 import {v4 as uuidv4} from 'uuid';
 
 export default {
   data() {
 
+    // Types
     interface Note {
         id: string;
         title: string;
@@ -55,6 +58,7 @@ export default {
         color: string;
     }
 
+    // Reactive variables
     return {
       currentTitle: 'Note #1' as string,
       currentText: '' as string,
@@ -64,6 +68,8 @@ export default {
       noteColors: ["blue", "red", "black", "white", "green", "indigo", "purple"]
     }
   },
+
+  // Functions with side-effects
   methods: {
     addNote() {
         this.notes.push({id: uuidv4(), title: this.currentTitle, text: this.currentText, color: this.currentColor});
@@ -78,6 +84,7 @@ export default {
 }
 </script>
 
+<!-- CSS -->
 <style>
     .note-container {
         height: 100%;
