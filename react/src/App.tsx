@@ -37,7 +37,7 @@ const App = () => {
   return (
     <>
       <NavBar addNoteHandler={addNoteHandler} noteColors={possibleNoteColors} amountOfNotes={notes.length} />
-      <NotesView notes={notes}/>
+      <NotesView notes={notes} deleteNote={deleteNoteHandler} />
     </>
   )
 }

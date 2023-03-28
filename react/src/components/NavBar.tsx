@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { FormEvent, useRef } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import { Col, Container, Form, Button, Navbar, Row, Stack } from 'react-bootstrap';
 
 type NavBarProps = {

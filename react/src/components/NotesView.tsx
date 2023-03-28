@@ -1,10 +1,12 @@
 import { Note } from "../App"
+import { Button, Card } from 'react-bootstrap';
 
 type NotesViewProps = {
-    notes: Note[]
+    notes: Note[],
+    deleteNote: (id: string) => void
 }
 
-const NotesView = ({ notes }: NotesViewProps) => {
+const NotesView = ({ notes, deleteNote }: NotesViewProps) => {
     const getTextColor = (color: string) => {
         if (color === 'white') {
             return 'black'
@@ -17,10 +19,16 @@ const NotesView = ({ notes }: NotesViewProps) => {
         <>
             {notes.map((note) => {
                 return (
-                    <p style={{
+                    <Card key={note.id} style={{
                         backgroundColor: note.color,
                         color: getTextColor(note.color)
-                    }} key={note.id}>{note.title}: {note.text}</p>
+                    }}>
+                        <Card.Header>{note.title}</Card.Header>
+                        <Card.Body>
+                            <Card.Text>{note.text}</Card.Text>
+                        </Card.Body>
+                        <Button onClick={() => deleteNote(note.id)}variant='danger'>Delete</Button>
+                    </Card>
                 )
             })}
         </>
