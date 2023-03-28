@@ -18,7 +18,6 @@ const NavBar = ({ addNoteHandler, noteColors, amountOfNotes }: NavBarProps) => {
         addNoteHandler(titleRef.current!.value, textRef.current!.value, color)
 
         formRef.current!.reset();
-        setColor(noteColors[0]);
     }
 
     return (
@@ -48,6 +47,7 @@ const NavBar = ({ addNoteHandler, noteColors, amountOfNotes }: NavBarProps) => {
                                 </Col>
                                 <Col>
                                     <Form.Select>
+                                        <option>Select color...</option>
                                         {noteColors.map((color) => {
                                             return (
                                                 <option key={color} value={color} onClick={
