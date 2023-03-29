@@ -1,47 +1,64 @@
-<script lang="ts">
-  import svelteLogo from './assets/svelte.svg'
-  import viteLogo from '/vite.svg'
-  import Counter from './lib/Counter.svelte'
-</script>
-
 <main>
-  <div>
-    <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-      <img src={viteLogo} class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank" rel="noreferrer">
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
-  </div>
-  <h1>Vite + Svelte</h1>
-
-  <div class="card">
-    <Counter />
-  </div>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
+  <TopAppBar bind:this={topAppBar} variant="fixed">
+    <Row>
+      <Section>
+        testi
+      </Section>
+    </Row>
+  </TopAppBar>
+  <AutoAdjust {topAppBar}>
+    Testi
+  </AutoAdjust>
 </main>
 
+<script lang="ts">
+  import TopAppBar, {
+    Row,
+    Section,
+    Title,
+    AutoAdjust,
+  } from '@smui/top-app-bar';  
+  import Card from "@smui/card";
+  import Select from "@smui/select";
+  import Button from "@smui/button";
+  import {v4 as uuidv4} from 'uuid';
+
+  let topAppBar: TopAppBar;
+
+
+  // Types
+  interface Note {
+    id: string;
+    title: string;
+    text: string;
+    color: string;
+  }
+
+  // Reactive variables
+  let currentTitle = "";
+  let currentText = "";
+  let currentColor = "";
+
+  // Functions
+  function addNote() {
+        this.notes.push({id: uuidv4(), title: this.currentTitle, text: this.currentText, color: this.currentColor});
+        this.currentTitle = "Note #" + (this.notes.length + 1);
+        this.currentText = "";
+        this.currentColor = "";                                 
+    };
+  function deleteNote(id: string) {
+        this.notes = this.notes.filter(item => item.id != id);
+    };
+</script>
+
 <style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
-  }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
-  }
-  .read-the-docs {
-    color: #888;
+  /* Hide everything above this component. */
+  :global(#smui-app),
+  :global(body),
+  :global(html) {
+    display: block !important;
+    height: auto !important;
+    width: auto !important;
+    position: static !important;
   }
 </style>
