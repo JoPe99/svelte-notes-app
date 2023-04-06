@@ -18,27 +18,37 @@
     color: string;
   }
 
+  let currentNodeId = 0;
   let notes: Note[] = [];
+  //color options
   const items = ["blue", "red", "black", "white", "green", "indigo", "purple"];
-  let note: Note = { id: "", title: "", text: "", color: "" };
+  $: noteTitle = '';
+  $: noteText = '';
+  $: noteColor = '';
+
+  const clearNoteState = () => {
+    noteTitle = '';
+    noteText = '';
+    currentNodeId++;
+  }
 
   function addNote() {
-    notes.push(note);
-    notes = notes;
+    notes = [...notes, {id: `${currentNodeId}`, title: noteTitle, text: noteText, color: noteColor }]
+    clearNoteState();
   }
 </script>
 
 <MaterialApp>
   <AppBar
     >Svelte Notes
-    <TextField class="ma-4" bind:value={note.title}>Note name</TextField>
-    <TextField class="ma-4" bind:value={note.text}>Text</TextField>
-    <Select {items} class="ma-4" placeholder="Color" />
+    <TextField class="ma-4" bind:value={noteTitle}>Note name</TextField>
+    <TextField class="ma-4" bind:value={noteText}>Text</TextField>
+    <Select {items} class="ma-4" bind:value={noteColor} placeholder="Color" />
     <Button on:click={() => addNote()}>Add note</Button>
   </AppBar>
 
   <div class="note-container pa-4 d-flex flex-wrap justify-start">
-    {#each notes as note}
+    {#each notes.reverse() as note}
       <Card class="note-card pa-4 ma-4">
         <CardTitle>{note.title}</CardTitle>
         <CardText>{note.text}</CardText>
@@ -46,3 +56,4 @@
     {/each}
   </div>
 </MaterialApp>
+
