@@ -10,6 +10,7 @@
     Select,
     Button,
   } from "svelte-materialify";
+
   interface Note {
     id: string;
     title: string;
@@ -60,7 +61,10 @@
 
   <div class="note-container pa-4 d-flex flex-wrap justify-start">
     {#each notes as note}
-      <Card class="note-card pa-4 ma-4">
+      <Card
+        class="note-card pa-4 ma-4 {note.color} {note.color === 'black' &&
+          'theme--dark'}"
+      >
         <Button on:click={() => deleteNote(note.id)}>Delete</Button>
         <CardTitle>{note.title}</CardTitle>
         <CardText>{note.text}</CardText>
