@@ -10,7 +10,6 @@
     Select,
     Button,
   } from "svelte-materialify";
-
   interface Note {
     id: string;
     title: string;
@@ -22,19 +21,31 @@
   let notes: Note[] = [];
   //color options
   const items = ["blue", "red", "black", "white", "green", "indigo", "purple"];
-  $: noteTitle = '';
-  $: noteText = '';
-  $: noteColor = '';
+  $: noteTitle = "";
+  $: noteText = "";
+  $: noteColor = "";
 
   const clearNoteState = () => {
-    noteTitle = '';
-    noteText = '';
+    noteTitle = "";
+    noteText = "";
     currentNodeId++;
-  }
+  };
 
   function addNote() {
-    notes = [...notes, {id: `${currentNodeId}`, title: noteTitle, text: noteText, color: noteColor }]
+    notes = [
+      ...notes,
+      {
+        id: `${currentNodeId}`,
+        title: noteTitle,
+        text: noteText,
+        color: noteColor,
+      },
+    ];
     clearNoteState();
+  }
+
+  function deleteNote(id: string) {
+    notes = notes.filter((note) => id != note.id);
   }
 </script>
 
@@ -48,12 +59,12 @@
   </AppBar>
 
   <div class="note-container pa-4 d-flex flex-wrap justify-start">
-    {#each notes.reverse() as note}
+    {#each notes as note}
       <Card class="note-card pa-4 ma-4">
+        <Button on:click={() => deleteNote(note.id)}>Delete</Button>
         <CardTitle>{note.title}</CardTitle>
         <CardText>{note.text}</CardText>
       </Card>
     {/each}
   </div>
 </MaterialApp>
-
