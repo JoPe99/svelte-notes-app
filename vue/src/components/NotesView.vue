@@ -45,6 +45,7 @@
 
 <!-- Logic -->
 <script lang="ts">
+import internal from 'stream';
 import {v4 as uuidv4} from 'uuid';
 
 export default {
@@ -60,6 +61,7 @@ export default {
 
     // Reactive variables
     return {
+      currentIndex: 1 as number,
       currentTitle: 'Note #1' as string,
       currentText: '' as string,
       currentColor: '' as string,
@@ -72,14 +74,18 @@ export default {
   // Functions with side-effects
   methods: {
     addNote() {
-        this.notes.push({id: uuidv4(), title: this.currentTitle, text: this.currentText, color: this.currentColor});
-        this.currentTitle = "Note #" + (this.notes.length + 1);
-        this.currentText = "";
-        this.currentColor = "";                                 
-    },
+        this.notes.push({id: uuidv4(), title: this.currentTitle, text: this.currentText, color: this.currentColor});                              
+        this.resetInput();
+   },
     deleteNote(id: string) {
         this.notes = this.notes.filter(item => item.id != id);
     },
+    resetInput() {
+        this.currentIndex++;
+        this.currentTitle = "Note #" + (this.currentIndex);
+        this.currentText = "";
+        this.currentColor = "";   
+    }
   }
 }
 </script>
