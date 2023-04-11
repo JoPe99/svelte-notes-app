@@ -23,12 +23,12 @@
   let notes: Note[] = [];
   //color options
   const items = ["blue", "red", "black", "white", "green", "indigo", "purple"];
-  $: noteTitle = "";
+  $: noteTitle = `Note #${currentNoteIndex + 1}`;
   $: noteText = "";
   $: noteColor = "";
 
   const clearNoteState = () => {
-    noteTitle = "";
+    noteTitle = `Note #${currentNoteIndex + 1}`;
     noteText = "";
     currentNoteIndex++;
   };
@@ -52,8 +52,7 @@
 </script>
 
 <MaterialApp>
-  <AppBar
-    >Svelte Notes
+  <AppBar class='pt-2'>Svelte Notes
     <TextField class="ma-4" bind:value={noteTitle}>Note name</TextField>
     <TextField class="ma-4" bind:value={noteText}>Text</TextField>
     <Select {items} class="ma-4" bind:value={noteColor} placeholder="Color" />
@@ -66,9 +65,11 @@
         class="note-card pa-4 ma-4 {note.color} {note.color === 'black' &&
           'theme--dark'}"
       >
-        <Button on:click={() => deleteNote(note.id)}>Delete</Button>
         <CardTitle>{note.title}</CardTitle>
         <CardText>{note.text}</CardText>
+        <Button on:click={() => deleteNote(note.id)}>
+          <small>Delete</small>
+        </Button>
       </Card>
     {/each}
   </div>
