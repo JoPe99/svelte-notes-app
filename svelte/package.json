@@ -19,6 +19,7 @@
     "vite": "^4.2.0"
   },
   "dependencies": {
-    "svelte-materialify": "^0.3.11"
+    "svelte-materialify": "^0.3.11",
+    "uuid": "^9.0.0"
   }
 }

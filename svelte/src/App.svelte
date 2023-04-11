@@ -1,5 +1,6 @@
 <script lang="ts">
   import "./app.css";
+  import { v4 as uuid } from 'uuid';
   import {
     MaterialApp,
     AppBar,
@@ -18,7 +19,7 @@
     color: string;
   }
 
-  let currentNodeId = 0;
+  let currentNoteIndex = 0;
   let notes: Note[] = [];
   //color options
   const items = ["blue", "red", "black", "white", "green", "indigo", "purple"];
@@ -29,14 +30,14 @@
   const clearNoteState = () => {
     noteTitle = "";
     noteText = "";
-    currentNodeId++;
+    currentNoteIndex++;
   };
 
   function addNote() {
     notes = [
       ...notes,
       {
-        id: `${currentNodeId}`,
+        id: uuid(),
         title: noteTitle,
         text: noteText,
         color: noteColor,
