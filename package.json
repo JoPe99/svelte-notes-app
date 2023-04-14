@@ -1,0 +1,17 @@
+{
+  "name": "svelte-notes-app",
+  "version": "1.0.0",
+  "description": "By Víctor Manuel Ontiveros and Joona Peni",
+  "main": "index.js",
+  "scripts": {
+    "react": "cd react && npm run dev",
+    "vue": "cd vue && npm run dev",
+    "svelte": "cd svelte && npm run dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "./*"
+  ]
+}
