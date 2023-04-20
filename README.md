@@ -3,6 +3,7 @@ By Víctor Manuel Ontiveros and Joona Peni
 
 ## What is this?
 In this info session, we showing off how simple Svelte can be as a frontend framework, in comparison to React or Vue. 
+Take some time to run each app and get a feel for the code for each one. Then we will come back and disucss our findings.
 
 ## How to run each app
 - At root, run `npm i` to install all dependencies
